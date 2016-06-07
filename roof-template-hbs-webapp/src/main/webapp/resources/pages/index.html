@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>ueditor demo</title>
+
+    <link rel="stylesheet" href="/styles/demo.css">
+    <link rel="stylesheet" href="/fonts/font-awesome/css/font-awesome.css">
+</head>
+<body>
+    <!-- 加载编辑器的容器 -->
+    <script id="container" name="content" type="text/plain">
+        <ul>
+            {{#each dataList}}<li>姓名：{{name}} 年龄:{{age}}</li>{{/each}}
+            {{#each userList}}<li>姓名22：{{name}} 年龄:{{age}}</li>{{/each}}
+            {{#each userList2}}<li>姓名3333：{{name}} 年龄:{{age}}</li>{{/each}}
+        </ul>
+    </script>
+    <!-- 配置文件 -->
+    <script type="text/javascript" src="/plugins/ueditor/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="/plugins/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" src="/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" src="/plugins/jquery.js"></script>
+    <script type="text/javascript" src="/plugins/handlebars-v4.0.5.js"></script>
+
+
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript" src="/scripts/index.js"></script>
+    </br>
+
+    <div class="data-source" id="sourceList">
+        <div id="addDataSource" class="btn btn-blue"><i class="icon-plus"></i>增加数据源</div>
+        <ul>
+            <li class="tab">
+                <div class="tab-title">
+                    <span>数据源:</span>
+                    <input class="s-key" type="text" placeholder="输入键值名称" value="dataList"/>
+                    <span class="btn btn-red" name="del-source">删除</span>
+                </div>
+                <div class="tab-content">
+                    <textarea  class="data">
+                    </textarea>
+                </div>
+            </li>
+            <li class="tab">
+                <div class="tab-title">
+                    <span>数据源:</span>
+                    <input class="s-key" type="text"  placeholder="输入键值名称"  value="userList"/>
+                    <span class="btn btn-red" name="del-source">删除</span>
+                </div>
+                <div class="tab-content">
+                    <textarea  class="data">
+                    </textarea>
+                </div>
+            </li>
+            <li class="tab">
+                <div class="tab-title">
+                    <span>数据源:</span>
+                    <input class="s-key" type="text"  placeholder="输入键值名称" value="userList2" />
+                    <span class="btn btn-red" name="del-source">删除</span>
+                </div>
+                <div class="tab-content">
+                    <textarea class="data"></textarea>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <br/>
+    <div id="createBtn" class="btn btn-blue"><i class="icon-play"></i>生成HTML</div>
+    </br>
+    </br>
+    </br>
+    <div class="code">
+        <!-- <div><button >复制</button></div> -->
+        <script type="text/html"  id="htmlContent" style="display: block;"></script> 
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,105 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <context:component-scan base-package="org.roof" use-default-filters="false">
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+	<mvc:resources mapping="/images/**" location="/resources/images/"/>
+    <mvc:resources mapping="/search/image/**" location="/resources/images/"/>
+    <mvc:resources mapping="/scripts/**" location="/resources/scripts/"/>
+    <mvc:resources mapping="/styles/**" location="/resources/styles/"/>
+    <mvc:resources mapping="/plugins/**" location="/resources/plugins/"/>
+    <mvc:resources mapping="/fonts/**" location="/resources/fonts/"/>
+    <mvc:resources mapping="/pages/**" location="/resources/pages/"/>
+	<mvc:view-controller path="/" view-name="redirect:index.html"/>
+
+    <mvc:annotation-driven validator="validator">
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+                        <property name="failOnEmptyBeans" value="false"/>
+                        <property name="simpleDateFormat" value="yyyy-MM-dd HH:mm:ss"/>
+                    </bean>
+                </property>
+            </bean>
+        </mvc:message-converters>
+        <!-- <mvc:argument-resolvers>
+            <bean class="com.healthcare.api.system.LoginUserArgumentResolver"/>
+        </mvc:argument-resolvers> -->
+    </mvc:annotation-driven>
+
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>classpath:messages</value>
+                <value>classpath:org/hibernate/validator/ValidationMessages</value>
+            </list>
+        </property>
+        <property name="useCodeAsDefaultMessage" value="false"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="cacheSeconds" value="60"/>
+    </bean>
+
+    <!-- <bean id="viewResolver" class="com.healthcare.api.view.MyHandlebarsViewResolver">
+        <property name="contentType" value="text/html; charset=utf-8"/>
+        <property name="cache" value="false"/>
+        <property name="prefix" value="/resources/views"/>
+        <property name="suffix" value=".hbs"/>
+        <property name="exposeRequestAttributes" value="true" />
+        <property name="allowRequestOverride" value="true" />
+        <property name="exposeSessionAttributes" value="true" />
+        <property name="exposeSpringMacroHelpers" value="true" />
+        <property name="helpList">
+            <util:list>
+                <bean class="com.healthcare.api.view.HandlebarHelpers"/>
+            </util:list>
+        </property>
+    </bean> -->
+	
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />  
+        <property name="prefix" value="/resources/pages/" />  
+    </bean>  
+	
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+          p:maxUploadSize="10485760"/>
+
+  <!--   <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/**/user/login"/>
+            <mvc:exclude-mapping path="/**/sample/login"/>
+            <mvc:exclude-mapping path="/**/screen/*"/>
+            <mvc:exclude-mapping path="/**/file/{uid}"/>
+            <bean class="com.healthcare.api.system.AuthInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors> -->
+    
+    
+    
+    
+</beans>

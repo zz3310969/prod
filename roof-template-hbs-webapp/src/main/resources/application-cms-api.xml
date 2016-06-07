@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+    <!--<context:property-placeholder-->
+    <!--location="classpath:api.properties"-->
+    <!--local-override="true"-->
+    <!--ignore-unresolvable="true"/>-->
+
+    <!--<context:annotation-config/>-->
+
+    <util:properties id="apiConfig" location="classpath:api.properties"/>
+
+<!--     <bean class="com.healthcare.api.system.ResourceCheckService">
+        <property name="excludeUrl" value="/images/.+,/styles/.+,/scripts/.+,/plugins/.+,/upload/.+,/fonts/.+"></property>
+        <property name="loginURISet">
+            <set>
+                <value>/user/login</value>
+                <value>/user</value>
+            </set>
+        </property>
+        <property name="logoutUrl" value="/user/logout"/>
+    </bean> -->
+    
+  <!--   <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
+	    定义默认的异常处理页面，当该异常类型的注册时使用  
+	    <property name="defaultErrorView" value="error"></property>  
+	    定义异常处理页面用来获取异常信息的变量名，默认名为exception  
+	    <property name="exceptionAttribute" value="ex"></property>  
+	    定义需要特殊处理的异常，用类名或完全路径名作为key，异常也页名作为值  
+	    <property name="exceptionMappings">  
+	        <props>  
+	            <prop key="com.healthcare.api.system.AuthInterceptor">user</prop>  
+	            这里还可以继续扩展对不同异常类型的处理  
+	        </props>  
+	    </property>  
+	</bean>  -->
+
+</beans>
